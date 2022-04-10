@@ -3,7 +3,7 @@
  * Redirecction to Request
  */
 
-import { LogInfo } from '@/utils/logger';
+import { LogInfo } from '../utils/logger';
 import express, { Request, Response } from 'express';
 import helloRouter from './HelloRouter';
 
