@@ -6,7 +6,7 @@
 import { LogInfo } from '../utils/logger';
 import express, { Request, Response } from 'express';
 import helloRouter from './HelloRouter';
-import goodbyeRouter from './GoodbyeRouter';
+import goodbyeRouter from './GoodbyeRouter'
 
 // Server intance
 let server = express();
