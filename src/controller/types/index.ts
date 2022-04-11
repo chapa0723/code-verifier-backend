@@ -14,3 +14,8 @@ export type ErrorResponse = {
   message: string;
   error: string;
 }
+
+export type GoodbyeResponse = {
+  message: string;
+  date: string;
+}

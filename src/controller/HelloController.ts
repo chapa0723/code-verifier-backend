@@ -16,7 +16,7 @@ export class HelloController implements IHelloController {
     LogSuccess('[/api/hello] Get Request');
 
     return {
-      message: `Hello ${name || "World"}`
+      message: `Hello ${name || 'World'}`
     }
   }
 }

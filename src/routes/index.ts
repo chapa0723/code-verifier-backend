@@ -6,6 +6,7 @@
 import { LogInfo } from '../utils/logger';
 import express, { Request, Response } from 'express';
 import helloRouter from './HelloRouter';
+import goodbyeRouter from './GoodbyeRouter';
 
 // Server intance
 let server = express();
@@ -26,5 +27,6 @@ rootRouter.get('/', (req: Request, res: Response) => {
 server.use('/', rootRouter); // http://localhost:8000/api
 server.use('/hello', helloRouter); // http://localhost:8000/api/hello ---> HelloRouter
 // ADD more routes to the APP
+server.use('/goodbye', goodbyeRouter); // http://localhost:8000/api/goodbye ---> GoodbyeRouter
 
 export default server;
