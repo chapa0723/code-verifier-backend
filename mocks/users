@@ -1,0 +1,22 @@
+[{
+  "_id": {
+    "$oid": "62557bc4978ba7a30fb650f8"
+  },
+  "name": "David",
+  "email": "david@gmail.com",
+  "age": 31
+},{
+  "_id": {
+    "$oid": "62557c54978ba7a30fb650f9"
+  },
+  "name": "Martin",
+  "email": "martin@imaginagroup.com",
+  "age": 30
+},{
+  "_id": {
+    "$oid": "62557c7f978ba7a30fb650fa"
+  },
+  "name": "Mario",
+  "email": "mario@gmail.com",
+  "age": 40
+}]

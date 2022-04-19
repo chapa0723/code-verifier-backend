@@ -7,6 +7,7 @@ import { LogInfo } from '../utils/logger'
 import express, { Request, Response } from 'express'
 import helloRouter from './HelloRouter'
 import goodbyeRouter from './GoodbyeRouter'
+import usersRouter from './UserRouter'
 
 // Server intance
 const server = express() // Antes era un let
@@ -28,5 +29,6 @@ server.use('/', rootRouter) // http://localhost:8000/api
 server.use('/hello', helloRouter) // http://localhost:8000/api/hello ---> HelloRouter
 // ADD more routes to the APP
 server.use('/goodbye', goodbyeRouter) // http://localhost:8000/api/goodbye ---> GoodbyeRouter
+server.use('/users', usersRouter) // http://localhost:8000/api/users ---> UsersRouter
 
 export default server

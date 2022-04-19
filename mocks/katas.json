@@ -1,0 +1,62 @@
+[
+  {
+    "_id": "625db8cf4f1731ffc2ded5cc",
+    "name": "Fibonacci - JAVA",
+    "description": "Resolver la sucecion de fibonacci en JAVA",
+    "level": 3,
+    "user": "625db8cff695e0777a668f21",
+    "date": "Tue Feb 22 2011 01:36:43 GMT-0300 (hora estándar de Argentina)",
+    "valoration": 1,
+    "chances": 3
+  },
+  {
+    "_id": "625db8cf40c9546bfb0442f6",
+    "name": "Cubo Rubik - Python",
+    "description": "Resolucion de cubo Rubik en Python",
+    "level": 8,
+    "user": "625db8cfffa801f55aef4884",
+    "date": "Mon Jul 20 2020 03:41:33 GMT-0300 (hora estándar de Argentina)",
+    "valoration": 3,
+    "chances": 2
+  },
+  {
+    "_id": "625db8cf2d5b5f1539c83e7e",
+    "name": "Factorial - C++",
+    "description": "Resolucion de factorial en C++",
+    "level": 6,
+    "user": "625db8cf511da836fb75344e",
+    "date": "Fri Apr 13 2012 14:42:15 GMT-0300 (hora estándar de Argentina)",
+    "valoration": 2,
+    "chances": 18
+  },
+  {
+    "_id": "625db8cfa294baaf1bf1d8f6",
+    "name": "Torres de Hanoi - JavaScript",
+    "description": "Resolucion de torres de hanoi en JavaScript",
+    "level": 5,
+    "user": "625db8cf348c402076bdd5d2",
+    "date": "Tue Mar 20 2015 23:42:34 GMT-0300 (hora estándar de Argentina)",
+    "valoration": 2,
+    "chances": 7
+  },
+  {
+    "_id": "625db8cfa0c74094dc56f883",
+    "name": "Cuadrado Magico - PHP",
+    "description": "Resolucion de cuadrado magico en PHP",
+    "level": 8,
+    "user": "625db8cf873c9570e0e67aab",
+    "date": "Tue Jan 30 2010 15:18:03 GMT-0300 (hora estándar de Argentina)",
+    "valoration": 4,
+    "chances": 7
+  },
+  {
+    "_id": "625db8cf2c338d2a1391756f",
+    "name": "Calculadora Basica - C++",
+    "description": "Resolucion de calculadora basica en C++",
+    "level": 1,
+    "user": "625db8cf51f101eadb4055a8",
+    "date": "Fri Sep 17 2011 21:11:12 GMT-0300 (hora estándar de Argentina)",
+    "valoration": 3,
+    "chances": 6
+  }
+]
