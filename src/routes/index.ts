@@ -8,6 +8,7 @@ import express, { Request, Response } from 'express'
 import helloRouter from './HelloRouter'
 import goodbyeRouter from './GoodbyeRouter'
 import usersRouter from './UserRouter'
+import katasRouter from './KatasRouter'
 
 // Server intance
 const server = express() // Antes era un let
@@ -30,5 +31,6 @@ server.use('/hello', helloRouter) // http://localhost:8000/api/hello ---> HelloR
 // ADD more routes to the APP
 server.use('/goodbye', goodbyeRouter) // http://localhost:8000/api/goodbye ---> GoodbyeRouter
 server.use('/users', usersRouter) // http://localhost:8000/api/users ---> UsersRouter
+server.use('/katas', katasRouter) // http://localhost:8000/api/katas ---> KatasController
 
 export default server

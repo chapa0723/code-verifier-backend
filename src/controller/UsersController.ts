@@ -4,7 +4,7 @@ import { LogSuccess, LogError, LogWarning } from '../utils/logger'
 
 // ORM - Users Collectrion
 import { deleteUserById, getAllUsers, getUserById, createUserByID, updateUserByID } from '../domain/orm/User.oem'
-import { userEntity } from '@/domain/entities/Pruebas.entity';
+import { userEntity } from '../domain/entities/User.entity';
 
 @Route('/api/users')
 @Tags('UsersController')
