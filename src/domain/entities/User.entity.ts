@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+import { IUser } from '../../controller/interfaces/IUser.interface';
 
 export const userEntity = () => {
   let UserSchema = new mongoose.Schema(
@@ -8,5 +9,12 @@ export const userEntity = () => {
       age: Number
     }
   )
-  return mongoose.models.Users || mongoose.model('Users', UserSchema);
+  // let UserSchema2 = new mongoose.Schema<IUser>(
+  //   {
+  //     name: { type: String, required: true },
+  //     email: { type: String, required: true },
+  //     age: { type: Number, required: true }
+  //   }
+  // )
+  return mongoose.models.Users || mongoose.model<IUser>('Users', UserSchema);
 }

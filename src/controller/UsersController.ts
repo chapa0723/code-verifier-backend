@@ -3,7 +3,7 @@ import { IUsersController } from './interfaces'
 import { LogSuccess, LogError, LogWarning } from '../utils/logger'
 
 // ORM - Users Collectrion
-import { deleteUserById, getAllUsers, getUserById, createUserByID, updateUserByID } from '../domain/orm/User.oem'
+import { deleteUserById, getAllUsers, getUserById, createUser, updateUserByID } from '../domain/orm/User.oem'
 import { userEntity } from '../domain/entities/User.entity';
 
 @Route('/api/users')
@@ -53,7 +53,7 @@ export class UsersController implements IUsersController {
   @Post('/')
   public async createUser(user: any): Promise<any> {
     let response: any = '';
-    await createUserByID(user).then((r) => {
+    await createUser(user).then((r) => {
       LogSuccess(`[/api/users] Created User: ${user}`);
       response = {
         message: `User created successfully: ${user.name}`

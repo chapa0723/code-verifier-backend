@@ -25,7 +25,7 @@ export interface KatasController {
   // Delete User by ID
   deleteKata(id?: string): Promise<any>
   // Create New User
-  createKata(user: any): Promise<any>
+  createKata(kata: any): Promise<any>
   // Update User by ID
-  updateKata(user: any, id: string): Promise<any>
+  updateKata(kata: any, id: string): Promise<any>
 }
