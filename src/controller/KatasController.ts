@@ -1,13 +1,13 @@
 import { Delete, Get, Post, Put, Query, Route, Tags } from 'tsoa'
-import { KatasController } from './interfaces/index'
+import { IKatasController } from './interfaces'
 import { LogSuccess, LogError, LogWarning } from '../utils/logger'
 
 // ORM - Users Collectrion
-import { deleteKataById, getAllKatas, getKataById, createKataByID, updateKataByID } from '../domain/orm/Katas.oem'
+import { deleteKataById, getAllKatas, getKataById, createKata, updateKataByID } from '../domain/orm/Katas.oem'
 
 @Route('/api/katas')
 @Tags('KatasController')
-export class katasController implements KatasController {
+export class KatasController implements IKatasController {
   /**
    * Endpoint to retreive the Katas in the collection "Katas" of DB
    * @param {String} id  ID of Kata to retreive (optional)
@@ -52,7 +52,7 @@ export class katasController implements KatasController {
   @Post('/')
   public async createKata (kata: any): Promise<any> {
     let response: any = ''
-    await createKataByID(kata).then((r) => {
+    await createKata(kata).then((r) => {
       LogSuccess(`[/api/katas] Created Kata: ${kata}`)
       response = {
         message: `Kata created successfully: ${kata.name}`

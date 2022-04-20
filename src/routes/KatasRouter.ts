@@ -1,5 +1,5 @@
 import express, { Request, Response } from 'express';
-import { katasController } from '../controller/KatasController';
+import { KatasController } from '../controller/KatasController';
 import { LogInfo } from '../utils/logger';
 
 // Router from express
@@ -13,7 +13,7 @@ kataRouter.route('/')
     let id: any = req?.query?.id;
     LogInfo(`Query Param: ${id}`);
     // Controller instance to execute
-    const controller: katasController = new katasController();
+    const controller: KatasController = new KatasController();
     // Obtain Response
     const response: any = await controller.getKatas(id);
     // Send to the client the response
@@ -25,7 +25,7 @@ kataRouter.route('/')
     let id: any = req?.query?.id;
     LogInfo(`Query Param: ${id}`);
     // Controller instance to execute
-    const controller: katasController = new katasController();
+    const controller: KatasController = new KatasController();
     // Obtain Response
     const response: any = await controller.deleteKata(id);
     // Send to the client the response
@@ -41,7 +41,7 @@ kataRouter.route('/')
     let valoration: any = req?.query?.valoration;
     let chances: any = req?.query?.chances;    
     // Controller instance to execute
-    const controller: katasController = new katasController();
+    const controller: KatasController = new KatasController();
     let kata = {
       name: name || 'default',
       description: description || 'default description',
@@ -69,7 +69,7 @@ kataRouter.route('/')
     let chances: any = req?.query?.chances;
     LogInfo(`Query Param: ${id}, ${name}, ${description}, ${level}, ${user}, ${date}, ${valoration}, ${chances}`);
     // Controller instance to execute
-    const controller: katasController = new katasController();
+    const controller: KatasController = new KatasController();
     let kata = {
       name: name || 'default',
       description: description || 'default description',

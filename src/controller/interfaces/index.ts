@@ -19,7 +19,7 @@ export interface IUsersController {
   updateUser(user: any, id: string): Promise<any>
 }
 
-export interface KatasController {
+export interface IKatasController {
   // Read all katas from database || get User by iD
   getKatas(id?: string): Promise<any>
   // Delete User by ID
