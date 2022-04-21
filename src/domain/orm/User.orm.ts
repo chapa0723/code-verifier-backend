@@ -5,8 +5,17 @@ import { IAuth } from '../interfaces/IAuth.interface';
 // BCRYPT for password encryption
 import bcrypt from 'bcrypt';
 
+// Enviroment variables
+import dotenv from 'dotenv';
+
 // JWT
 import jwt from 'jsonwebtoken';
+
+// Configuration of enviroment vatiables
+dotenv.config();
+
+// Obtain the secret key to generate JWT
+const secret = process.env.SECRETKEY || 'MYSECRETKEY';
 
 // CRUD
 /**
@@ -85,32 +94,35 @@ export const loginUser = async (auth: IAuth) : Promise <any | undefined> => {
   // TODO: NOT IMPLEMENTED
   try {
     let userModel = userEntity()
-    // Find User by email
-    userModel.findOne({email: auth.email}, (err: any, user: IUser) => {
-      if (err) {
-        LogError(`[ORM ERROR]: (500) Login User: ${err}`);
-      }
-      if (!user) {
-        LogError('[ORM ERROR]: Login User: User not found (404)');
-      }
-      // Use bcrypt to compare password
-      let validPassword = bcrypt.compareSync(auth.password, user.password);
-      if (!validPassword) {
-        LogError('[ORM ERROR]: Login User: Invalid password (401)');
-      }
-      // Create JWT
-      // TODO: SECRET must be in .env
-      let token = jwt.sign({email: user.email}, 'MYSECRETWORD',{
-        expiresIn: "2h"
-      });
 
-      return token;
+    let userFound: IUser | undefined = undefined;
+    let token = undefined
 
+    // Check if user exists by email
+    await userModel.findOne({ email: auth.email }).then((user: IUser) => {
+      userFound = user;
+    }).catch((error) => {
+      console.error('[ERROR Authentication in ORM]: User not found');
+      throw new Error(`[ERROR Authentication in ORM]: User not found: ${error}`);
+    })
+
+
+    // Check if password valida (compare with bcrypt)
+    let validPassword = bcrypt.compareSync(auth.password, userFound!.password);
+
+    if (!validPassword) {
+      console.error('[ERROR Authentication in ORM]: Password not valid');
+      throw new Error('[ERROR Authentication in ORM]: Password not valid');
+    }
+
+    // Create ouw JWT
+    token = jwt.sign({ email: userFound.email }, secret, {
+      expiresIn: '2h'
     });
-
-
-    // TODO: Create json web token
-
+    return {
+      user: userFound,
+      token: token
+    }
   } catch (error) {
     LogError(`[ORM ERROR]: Creating User: ${error}`);
   }

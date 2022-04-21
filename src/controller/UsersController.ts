@@ -5,7 +5,6 @@ import { LogSuccess, LogError, LogWarning } from '../utils/logger'
 // ORM - Users Collectrion
 import { deleteUserById, getAllUsers, getUserById, createUser, updateUserByID } from '../domain/orm/User.orm'
 import { userEntity } from '../domain/entities/User.entity';
-
 @Route('/api/users')
 @Tags('UsersController')
 export class UsersController implements IUsersController {
@@ -20,9 +19,12 @@ export class UsersController implements IUsersController {
     if (id) {
       LogSuccess(`[/api/users] Get User by ID: ${id}`);
       response = await getUserById(id);
+      // Remove the password from the response
+      response.password = ''
     } else {
       LogSuccess('[/api/users] Get All Users Request');
       response = await getAllUsers();
+      //TODO: remove the password from the response
     }
     return response;
   }
@@ -50,19 +52,6 @@ export class UsersController implements IUsersController {
       }
     }
     return response
-  }
-  
-  @Post('/')
-  public async createUser(user: any): Promise<any> {
-    let response: any = '';
-    await createUser(user).then((r) => {
-      LogSuccess(`[/api/users] Created User: ${user}`);
-      response = {
-        status: 204, // Es importante tenerlo en cuenta para la correcta interpretacion de la respuesta
-        message: `User created successfully: ${user.name}`
-      }
-    })
-    return response;
   }
 
   @Put('/')

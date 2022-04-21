@@ -6,6 +6,11 @@ import { IUser } from '../domain/interfaces/IUser.interface';
 // Import BCRYPT for password encryption
 import bcrypt from 'bcrypt';
 
+// Body parser ro read BODY from request
+import bodyParser from 'body-parser';
+
+let jsonParser = bodyParser.json();
+
 // Router from express
 let userRouter = express.Router();
 
@@ -33,26 +38,6 @@ userRouter.route('/')
     const controller: UsersController = new UsersController();
     // Obtain Response
     const response: any = await controller.deleteUser(id);
-    // Send to the client the response
-    return res.status(200).send(response);
-  })
-  // POST:
-  .post(async (req: Request, res: Response) => {
-    let name: any = req?.query?.name;
-    let email: any = req?.query?.email;
-    let age: any = req?.query?.age;
-
-    // let name2: any = req?.body?.name;
-    // LogInfo(`NAME in BODY: ${name2}`);
-    // Controller instance to execute
-    const controller: UsersController = new UsersController();
-    let user = {
-      name: name || 'default',
-      email: email || 'default@gmail.com',
-      age: age || 18
-    }
-    // Obtain Response
-    const response: any = await controller.createUser(user);
     // Send to the client the response
     return res.status(200).send(response);
   })

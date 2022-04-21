@@ -1,5 +1,11 @@
 import { Request, Response, NextFunction } from 'express';
 import jwt from 'jsonwebtoken';
+import dotenv from 'dotenv';
+
+// Config dotenv to read enviroment variables
+dotenv.config();
+
+const secret = process.env.SECRET || 'MY SECRETKEY';
 
 /**
  * 
@@ -20,8 +26,9 @@ export const verifyToken = (req: Request, res: Response, next: NextFunction) => 
       message: 'Not authorised to consume this endpoint'
     });
   }
-  // Verify the token obtained
-  jwt.verify(token, '', (err: any, decoded: any) => {
+  // Verify the token obtained, We pass the secret
+  // TODO: pass secret key
+  jwt.verify(token, secret, (err: any, decoded: any) => {
     if (err) {
       return res.status(500).send({
         authenticationError: 'JWT Verification Failed',
@@ -29,7 +36,7 @@ export const verifyToken = (req: Request, res: Response, next: NextFunction) => 
       });
     }
 
-    // Pass something to next reques () id of user || other info
+
     // Execute next function -> Protected routes will be executed
     next()
   })

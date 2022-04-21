@@ -19,3 +19,12 @@ export type GoodbyeResponse = {
   message: string;
   date: string;
 }
+
+/**
+ * Basic JSON response for controller
+ */
+
+export type AuthResponse = {
+  message: string;
+  token: string;
+}
