@@ -9,6 +9,9 @@ import bcrypt from 'bcrypt';
 // Body parser ro read BODY from request
 import bodyParser from 'body-parser';
 
+// Import verifytoken from middleware
+import { verifyToken } from '../middlewares/verifyToken.middleware';
+
 let jsonParser = bodyParser.json();
 
 // Router from express
@@ -18,7 +21,7 @@ let userRouter = express.Router();
 // http://localhost:8000/api/users?id=62557bc4978ba7a30fb650f8
 userRouter.route('/')
   // GET:
-  .get(async (req: Request, res: Response) => {
+  .get(verifyToken, async (req: Request, res: Response) => {
     // Obtain a Query Param (ID)
     let id: any = req?.query?.id;
     LogInfo(`Query Param: ${id}`);
@@ -30,7 +33,7 @@ userRouter.route('/')
     return res.status(200).send(response);
   })
   // DELETE:
-  .delete(async (req: Request, res: Response) => {
+  .delete(verifyToken, async (req: Request, res: Response) => {
     // Obtain a Query Param (ID)
     let id: any = req?.query?.id;
     LogInfo(`Query Param: ${id}`);
@@ -42,7 +45,7 @@ userRouter.route('/')
     return res.status(200).send(response);
   })
   // PUT:
-  .put(async (req: Request, res: Response) => {
+  .put(verifyToken, async (req: Request, res: Response) => {
     // Obtain a Query Param (ID)
     let id: any = req?.query?.id;
     let name: any = req?.query?.name;
