@@ -3,7 +3,7 @@ import { IUsersController } from './interfaces'
 import { LogSuccess, LogError, LogWarning } from '../utils/logger'
 
 // ORM - Users Collectrion
-import { deleteUserById, getAllUsers, getUserById, createUser, updateUserByID } from '../domain/orm/User.oem'
+import { deleteUserById, getAllUsers, getUserById, createUser, updateUserByID } from '../domain/orm/User.orm'
 import { userEntity } from '../domain/entities/User.entity';
 
 @Route('/api/users')
@@ -38,12 +38,14 @@ export class UsersController implements IUsersController {
     if (id) {
       await deleteUserById(id).then((r) => {
         response = {
+          status: 204, // Es importante tenerlo en cuenta para la correcta interpretacion de la respuesta
           message: `User with id ${id} Delete Successfully`
         }
       })
     } else {
       LogWarning('[/api/users] Delete User Request without ID');
       response = {
+        status: 400, // Es importante tenerlo en cuenta para la correcta interpretacion de la respuesta
         message: 'Please, provide an ID to delete from DB'
       }
     }
@@ -56,6 +58,7 @@ export class UsersController implements IUsersController {
     await createUser(user).then((r) => {
       LogSuccess(`[/api/users] Created User: ${user}`);
       response = {
+        status: 204, // Es importante tenerlo en cuenta para la correcta interpretacion de la respuesta
         message: `User created successfully: ${user.name}`
       }
     })
@@ -68,12 +71,14 @@ export class UsersController implements IUsersController {
     if (id) {
       await updateUserByID(id, user).then((r) => {
         response = {
+          status: 204, // Es importante tenerlo en cuenta para la correcta interpretacion de la respuesta
           message: `User with id ${id} Updated Successfully`
         }
       })
     } else {
       LogWarning('[/api/users] Update User Request without ID');
       response = {
+        status: 400, // Es importante tenerlo en cuenta para la correcta interpretacion de la respuesta
         message: 'Please, provide an ID to Update an existing user'
       }
     }

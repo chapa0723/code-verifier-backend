@@ -3,7 +3,7 @@ import { IKatasController } from './interfaces'
 import { LogSuccess, LogError, LogWarning } from '../utils/logger'
 
 // ORM - Users Collectrion
-import { deleteKataById, getAllKatas, getKataById, createKata, updateKataByID } from '../domain/orm/Katas.oem'
+import { deleteKataById, getAllKatas, getKataById, createKata, updateKataByID } from '../domain/orm/Katas.orm'
 
 @Route('/api/katas')
 @Tags('KatasController')
