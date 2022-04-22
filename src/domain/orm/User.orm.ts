@@ -79,11 +79,11 @@ export const updateUserByID = async (id: string, user: any) : Promise <any | und
 
 // Register user
 export const registerUser = async (user: IUser) : Promise <any | undefined> => {
-  // TODO: NOT functional yet
   try {
     let userModel = userEntity()
     // Create / Insert a new User
     return await userModel.create(user)
+    
   } catch (error) {
     LogError(`[ORM ERROR]: Creating User: ${error}`);
   }
@@ -91,7 +91,6 @@ export const registerUser = async (user: IUser) : Promise <any | undefined> => {
 
 // Login user
 export const loginUser = async (auth: IAuth) : Promise <any | undefined> => {
-  // TODO: NOT IMPLEMENTED
   try {
     let userModel = userEntity()
 
@@ -106,7 +105,6 @@ export const loginUser = async (auth: IAuth) : Promise <any | undefined> => {
       throw new Error(`[ERROR Authentication in ORM]: User not found: ${error}`);
     })
 
-
     // Check if password valida (compare with bcrypt)
     let validPassword = bcrypt.compareSync(auth.password, userFound!.password);
 
@@ -115,10 +113,11 @@ export const loginUser = async (auth: IAuth) : Promise <any | undefined> => {
       throw new Error('[ERROR Authentication in ORM]: Password not valid');
     }
 
-    // Create ouw JWT
-    token = jwt.sign({ email: userFound.email }, secret, {
+    // Create our JWT
+    token = jwt.sign({ email: userFound!.email }, secret, {
       expiresIn: '2h'
     });
+    
     return {
       user: userFound,
       token: token

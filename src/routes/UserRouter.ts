@@ -6,19 +6,18 @@ import { IUser } from '../domain/interfaces/IUser.interface';
 // Import BCRYPT for password encryption
 import bcrypt from 'bcrypt';
 
-// Body parser ro read BODY from request
-import bodyParser from 'body-parser';
-
 // Import verifytoken from middleware
 import { verifyToken } from '../middlewares/verifyToken.middleware';
 
+// Body parser ro read BODY from request
+import bodyParser from 'body-parser';
 let jsonParser = bodyParser.json();
 
 // Router from express
 let userRouter = express.Router();
 
 
-// http://localhost:8000/api/users?id=62557bc4978ba7a30fb650f8
+// http://localhost:8000/api/users?id=
 userRouter.route('/')
   // GET:
   .get(verifyToken, async (req: Request, res: Response) => {

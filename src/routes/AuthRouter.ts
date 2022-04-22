@@ -62,7 +62,6 @@ authRouter.route('/login')
 
     if (email && password) {
 
-      // TODO: use IAuth
       let auth: IAuth = {
         email,
         password
@@ -88,7 +87,7 @@ authRouter.route('/login')
 // Route protected by Verify Token middleware
 authRouter.route('/me')
   .get(verifyToken, async (req: Request, res: Response) => { // primero se ejectuta el MIDDLEWARE (verifyToken) para luego pasar a la siguienbte funcion
-    // obtain tje iD of user to check it's data
+    // obtain the iD of user to check it's data
     let id: any = req?.query?.id;
     if (id) {
 

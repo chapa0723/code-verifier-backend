@@ -65,7 +65,7 @@ export class AuthController implements IAuthController {
   /**
    * Endpoint to retreive the user in the collection "Users" of DB
    * Middleware: Validate JWT
-   * In the header you must add the x-acces-token with a valid JWT
+   * In the header you must add the x-access-token with a valid JWT
    * @param {String} id  ID of user to retreive (optional)
    * @returns All users o user found by ID
    */
@@ -76,7 +76,7 @@ export class AuthController implements IAuthController {
       LogSuccess(`[/api/users] Get User Data by ID: ${id}`);
       response = await getUserById(id);
       // Remove the password from the response
-      response.password = ''
+      // response.password = ''
     } 
     return response;
   }
