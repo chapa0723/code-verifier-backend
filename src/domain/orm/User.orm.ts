@@ -10,6 +10,8 @@ import dotenv from 'dotenv';
 
 // JWT
 import jwt from 'jsonwebtoken';
+import { response } from 'express';
+import { UserResponse } from '../types/UsersResponse.types';
 
 // Configuration of enviroment vatiables
 dotenv.config();
@@ -21,12 +23,28 @@ const secret = process.env.SECRETKEY || 'MYSECRETKEY';
 /**
  * Method to optain all user from collection  "Users" in Mongo Server
  */
-export const getAllUsers = async () => {
+export const getAllUsers = async (page: number, limit: number): Promise<any[] | undefined> => {
   try {
     let userModel = userEntity();
 
-    // Search All User
-    return await userModel.find({ isDelete: false });
+    let response: any = {}
+
+    // Search all users (using pagination)
+    await userModel.find({isDeleted: false})
+      .select('name email age')
+      .limit(limit)
+      .skip((page - 1) * limit)
+      .exec().then((users: IUser[]) => {
+        response.users = users;
+      })
+
+    // Count total documentos in collection "Users"
+    await userModel.countDocuments().then((total: number) => {
+      response.totalPages = Math.ceil(total / limit);
+      response.currentPages = page;
+    })
+
+    return response;
 
   } catch (error) {
     LogError(`[ORM ERROR]: Getting ALl Users: ${error}`);
@@ -39,7 +57,7 @@ export const getUserById = async (id: string) : Promise <any | undefined> => {
   try {
     let userModel = userEntity();
     // Search User by ID
-    return await userModel.findById(id);
+    return await userModel.findById(id).select('name email age');
   } catch (error) {
     LogError(`[ORM ERROR]: Getting User by ID: ${error}`);
   }

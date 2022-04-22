@@ -17,17 +17,26 @@ let jsonParser = bodyParser.json();
 let userRouter = express.Router();
 
 
-// http://localhost:8000/api/users?id=
+// http://localhost:8000/api/users?id=xxxxxxxxxxxxxx
 userRouter.route('/')
   // GET:
   .get(verifyToken, async (req: Request, res: Response) => {
+
     // Obtain a Query Param (ID)
     let id: any = req?.query?.id;
+
+    // Pagination
+    let page: any = req?.query?.page || 1;
+    let limit: any = req?.query?.limit || 10;
+
     LogInfo(`Query Param: ${id}`);
+    
     // Controller instance to execute
     const controller: UsersController = new UsersController();
+    
     // Obtain Response
-    const response: any = await controller.getUsers(id);
+    const response: any = await controller.getUsers(page, limit, id);
+    
     // Send to the client the response
     return res.status(200).send(response);
   })
