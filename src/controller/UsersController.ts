@@ -3,7 +3,7 @@ import { IUsersController } from './interfaces'
 import { LogSuccess, LogError, LogWarning } from '../utils/logger'
 
 // ORM - Users Collectrion
-import { deleteUserById, getAllUsers, getUserById, createUser, updateUserByID } from '../domain/orm/User.orm'
+import { deleteUserById, getAllUsers, getUserById, createUser, updateUserByID, getKatasFromUser } from '../domain/orm/User.orm'
 import { userEntity } from '../domain/entities/User.entity';
 @Route('/api/users')
 @Tags('UsersController')
@@ -69,5 +69,23 @@ export class UsersController implements IUsersController {
       }
     }
     return response
+  }
+
+  @Get('/katas') // users/katas
+  public async getKatas (@Query()page: number, @Query()limit: number, @Query()id: string): Promise<any> {
+    
+    let response: any = '';
+
+    if (id) {
+      LogSuccess(`[/api/users/katas] Get Kata from User by ID: ${id}`);
+      response = await getKatasFromUser(id, page, limit);
+    } else {
+      LogSuccess('[/api/users/katas] Get All Katas with out ID');
+      response = {
+        message: 'ID from user is needed'
+      }
+    }
+
+    return response;
   }
 }

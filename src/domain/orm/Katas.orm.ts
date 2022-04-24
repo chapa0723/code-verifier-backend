@@ -1,63 +1,87 @@
-import { katasEntity } from '../entities/Katas.entity'
+import { kataEntity } from '../entities/Katas.entity'
 import { LogSuccess, LogError } from '../../utils/logger'
+
+// Import Enviroments Variables
+import dotevn from 'dotenv'
+import { IKata } from '../interfaces/IKata.interface'
+// Configure Enviroment Variables
+dotevn.config()
+
 
 // CRUD
 /**
- * Method to optain all Katas from collection  "Katas" in Mongo Server
+ * Method to optain all user from collection  "Users" in Mongo Server
  */
-export const getAllKatas = async () => {
+export const getAllKatas = async (page: number, limit: number): Promise<any[] | undefined> => {
   try {
-    let katasModel = katasEntity()
+    let kataModel = kataEntity();
 
-    // Search All Katas
-    return await katasModel.find({ isDelete: false })
+    let response: any = {}
+
+    // Search all users (using pagination)
+    await kataModel.find({isDeleted: false})
+      .limit(limit)
+      .skip((page - 1) * limit)
+      .exec().then((katas: IKata[]) => {
+        response.katas = katas;
+      })
+
+    // Count total documentos in collection "Users"
+    await kataModel.countDocuments().then((total: number) => {
+      response.totalPages = Math.ceil(total / limit);
+      response.currentPages = page;
+    })
+
+    return response;
+
   } catch (error) {
-    LogError(`[ORM ERROR]: Getting ALl Katas: ${error}`)
+    LogError(`[ORM ERROR]: Getting ALl KATAS: ${error}`);
   }
 }
 
-// Get Kata by ID
+
+// Get User by ID
 export const getKataById = async (id: string) : Promise <any | undefined> => {
   try {
-    let katasModel = katasEntity()
-    // Search Katas by ID
-    return await katasModel.findById(id)
+    let kataModel = kataEntity();
+    
+    // Search KATA by ID
+    return await kataModel.findById(id);
+
   } catch (error) {
-    LogError(`[ORM ERROR]: Getting Kata by ID: ${error}`)
+    LogError(`[ORM ERROR]: Getting Kata by ID: ${error}`);
   }
 }
 
-// Delete Kata by ID
+// Delete KATA by ID
 export const deleteKataById = async (id: string) : Promise <any | undefined> => {
   try {
-    let katasModel = katasEntity()
-    // Delete Kata by ID
-    return await katasModel.deleteOne({_id: id})
+    let kataModel = kataEntity();
+    // Delete KATA by ID
+    return await kataModel.deleteOne({_id: id});
   } catch (error) {
-    LogError(`[ORM ERROR]: Deleting Kata by ID: ${error}`)
+    LogError(`[ORM ERROR]: Deleting KATA by ID: ${error}`);
   }
 }
 
-// Create New Kata
-export const createKata = async (kata: any) : Promise <any | undefined> => {
+// Create New User
+export const createKata = async (kata: IKata) : Promise <any | undefined> => {
   try {
-    let katasModel = katasEntity()
-    // Create / Insert a new Kata
-    return await katasModel.create(kata)
+    let kataModel = kataEntity()
+    // Create / Insert a new KATA
+    return await kataModel.create(kata)
   } catch (error) {
-    LogError(`[ORM ERROR]: Creating Kata: ${error}`)
-  }
-}
-// Update Kata by ID
-export const updateKataByID = async (id: string, kata: any) : Promise <any | undefined> => {
-  try {
-    let katasModel = katasEntity()
-    // Update Kata by ID
-    return await katasModel.findByIdAndUpdate(id, kata)
-  } catch (error) {
-    LogError(`[ORM ERROR]: Updateing Kata ${id}: ${error}`)
+    LogError(`[ORM ERROR]: Creating KATA: ${error}`);
   }
 }
 
-// TODO
-// Get Kata by valoration
+// Update KATA by ID
+export const updateKataByID = async (id: string, kata: IKata) : Promise <any | undefined> => {
+  try {
+    let kataModel = kataEntity();
+    // Update KATa by ID
+    return await kataModel.findByIdAndUpdate(id, kata);
+  } catch (error) {
+    LogError(`[ORM ERROR]: Updateing Kata ${id}: ${error}`);
+  }
+}

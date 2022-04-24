@@ -5,7 +5,7 @@ import dotenv from 'dotenv';
 // Config dotenv to read enviroment variables
 dotenv.config();
 
-const secret = process.env.SECRETKEY || 'MY SECRETKEY';
+const secret = process.env.SECRETKEY || 'MYSECRETKEY';
 
 /**
  * 

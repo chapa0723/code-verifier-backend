@@ -71,6 +71,27 @@ userRouter.route('/')
     const response: any = await controller.updateUser(id, user);
     // Send to the client the response
     return res.status(200).send(response);
+  });
+
+// http://localhost:8000/api/users?id=xxxxxxxxxxxxxx
+userRouter.route('/katas')
+  // GET:
+  .get(verifyToken, async (req: Request, res: Response) => {
+    // Obtain a Query Param (ID)
+    let id: any = req?.query?.id;
+
+    // Pagination
+    let page: any = req?.query?.page || 1;
+    let limit: any = req?.query?.limit || 10;
+    
+    // Controller instance to execute
+    const controller: UsersController = new UsersController();
+    
+    // Obtain Response
+    const response: any = await controller.getKatas(page, limit, id);
+    
+    // Send to the client the response
+    return res.status(200).send(response);
   })
 
 // Export Hellorouter

@@ -8,7 +8,7 @@ import express, { Request, Response } from 'express'
 import helloRouter from './HelloRouter'
 import goodbyeRouter from './GoodbyeRouter'
 import usersRouter from './UserRouter'
-import katasRouter from './KatasRouter'
+import kataRouter from './KataRouter'
 import authRouter from './AuthRouter'
 
 // Server intance
@@ -32,11 +32,9 @@ server.use('/hello', helloRouter) // http://localhost:8000/api/hello ---> HelloR
 // ADD more routes to the APP
 server.use('/goodbye', goodbyeRouter) // http://localhost:8000/api/goodbye ---> GoodbyeRouter
 server.use('/users', usersRouter) // http://localhost:8000/api/users ---> UsersRouter
-server.use('/katas', katasRouter) // http://localhost:8000/api/katas ---> KatasController
 
 // Auth routes for users
 server.use('/auth', authRouter) // http://localhost:8000/api/auth ---> AuthRouter
-
-
-
+// Katas Router
+server.use('/katas', kataRouter) // http://localhost:8000/api/katas ---> KatasController
 export default server

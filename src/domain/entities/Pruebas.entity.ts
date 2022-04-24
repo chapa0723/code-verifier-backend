@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 
-export const userEntity = () => {
+export const pruebasEntity = () => {
   const userSchema = new mongoose.Schema(
     {
       gender: String,

@@ -12,6 +12,10 @@ import dotenv from 'dotenv';
 import jwt from 'jsonwebtoken';
 import { response } from 'express';
 import { UserResponse } from '../types/UsersResponse.types';
+import { kataEntity } from '../entities/Katas.entity';
+import { IKata } from '../interfaces/IKata.interface';
+import mongoose from 'mongoose';
+import { UsersController } from '@/controller/UsersController';
 
 // Configuration of enviroment vatiables
 dotenv.config();
@@ -31,7 +35,7 @@ export const getAllUsers = async (page: number, limit: number): Promise<any[] | 
 
     // Search all users (using pagination)
     await userModel.find({isDeleted: false})
-      .select('name email age')
+      .select('name email age katas')
       .limit(limit)
       .skip((page - 1) * limit)
       .exec().then((users: IUser[]) => {
@@ -141,11 +145,49 @@ export const loginUser = async (auth: IAuth) : Promise <any | undefined> => {
       token: token
     }
   } catch (error) {
-    LogError(`[ORM ERROR]: Creating User: ${error}`);
+    LogError(`[ORM ERROR]: Login User: ${error}`);
   }
 }
 
 // Logout user
 export const logoutUser = async () : Promise <any | undefined> => {
   // TODO: NOT IMPLEMENTED
+}
+
+export const getKatasFromUser = async (id: string, page: number, limit: number): Promise<any[] | undefined> => {
+  try {
+    let userModel = userEntity();
+    let kataModel = kataEntity();
+
+    let katasFound: IKata[] = []
+    
+    let response: any = {
+      katas: []
+    };
+
+    await userModel.findById(id).then(async (user: IUser) => {
+      response.user = user.email;
+
+      // console.log('Katas From USER', user.katas);
+
+      // Create types to search
+      let ObjectIds:mongoose.Types.ObjectId[] = []
+      user.katas.forEach((kataID: string) => {
+        let ObjectId = new mongoose.Types.ObjectId(kataID);
+        ObjectIds.push(ObjectId);
+      })
+
+      await kataModel.find({"_id": {"$in": ObjectIds}}).then((katas: IKata[]) => {
+        katasFound = katas;
+      })
+
+    }).catch((error) => {
+      LogError(`[ORM ERROR]: Obtain User: ${error}`);
+    })
+    response.katas = katasFound;
+    return response;
+
+  } catch (error) {
+    LogError(`[ORM ERROR]: Getting ALl Users: ${error}`);
+  }
 }
